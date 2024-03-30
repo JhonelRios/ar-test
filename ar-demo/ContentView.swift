@@ -20,24 +20,28 @@ struct ARViewContainer: UIViewRepresentable {
         
         let arView = ARView(frame: .zero)
         
+        let llamaEntity = try! Entity.load(named: "llama")
+        llamaEntity.scale = SIMD3(0.5, 0.5, 0.5)
+        llamaEntity.transform.translation = [0, -2.5, -8]
+        
         // Create a cube model
-        let mesh = MeshResource.generateBox(size: 0.1, cornerRadius: 0.005)
-        let material = SimpleMaterial(color: .gray, roughness: 0.15, isMetallic: true)
-        let model = ModelEntity(mesh: mesh, materials: [material])
-        //        model.transform.translation.y = 0.05
-        model.generateCollisionShapes(recursive: true)
-        model.transform.translation = [0, 0, -0.5]
+//        let mesh = MeshResource.generateBox(size: 0.1, cornerRadius: 0.005)
+//        let material = SimpleMaterial(color: .gray, roughness: 0.15, isMetallic: true)
+//        let model = ModelEntity(mesh: mesh, materials: [material])
+//        //        model.transform.translation.y = 0.05
+//        model.generateCollisionShapes(recursive: true)
+//        model.transform.translation = [0, 0, -0.5]
         
         // Create horizontal plane anchor for the content
         let anchor = AnchorEntity(world: .zero)
-        anchor.children.append(model)
+        anchor.children.append(llamaEntity)
         
         // Add the horizontal plane anchor to the scene
         arView.scene.anchors.append(anchor)
         
         // Add touch gesture
-        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
-        arView.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
+//        arView.addGestureRecognizer(tapGesture)
         
         return arView
         
